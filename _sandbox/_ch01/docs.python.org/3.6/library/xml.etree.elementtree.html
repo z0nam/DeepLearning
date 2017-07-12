@@ -1,0 +1,385 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>20.5. xml.etree.ElementTree — The ElementTree XML API &mdash; Python 3.6.2rc2 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/pydoctheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '3.6.2rc2',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/sidebar.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Search within Python 3.6.2rc2 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="Python 3.6.2rc2 documentation" href="../contents.html" />
+    <link rel="up" title="20. Structured Markup Processing Tools" href="markup.html" />
+    <link rel="next" title="20.6. xml.dom — The Document Object Model API" href="xml.dom.html" />
+    <link rel="prev" title="20.4. XML Processing Modules" href="xml.html" />
+    <link rel="shortcut icon" type="image/png" href="../_static/py.png" />
+    <link rel="canonical" href="https://docs.python.org/3/library/xml.etree.elementtree.html" />
+    
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <script type="text/javascript" src="../_static/version_switch.js"></script>
+    
+    
+ 
+
+  </head>
+  <body role="document">  
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="xml.dom.html" title="20.6. xml.dom — The Document Object Model API"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="xml.html" title="20.4. XML Processing Modules"
+             accesskey="P">previous</a> |</li>
+        <li><img src="../_static/py.png" alt=""
+                 style="vertical-align: middle; margin-top: -1px"/></li>
+        <li><a href="https://www.python.org/">Python</a> &raquo;</li>
+        <li>
+          <span class="version_switcher_placeholder">3.6.2rc2</span>
+          <a href="../index.html">Documentation </a> &raquo;
+        </li>
+
+          <li class="nav-item nav-item-1"><a href="index.html" >The Python Standard Library</a> &raquo;</li>
+          <li class="nav-item nav-item-2"><a href="markup.html" accesskey="U">20. Structured Markup Processing Tools</a> &raquo;</li>
+    <li class="right">
+        
+
+    <div class="inline-search" style="display: none" role="search">
+        <form class="inline-search" action="../search.html" method="get">
+          <input placeholder="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+    <script type="text/javascript">$('.inline-search').show(0);</script>
+         |
+    </li>
+
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-xml.etree.ElementTree">
+<span id="xml-etree-elementtree-the-elementtree-xml-api"></span><h1>20.5. <a class="reference internal" href="#module-xml.etree.ElementTree" title="xml.etree.ElementTree: Implementation of the ElementTree API."><code class="xref py py-mod docutils literal"><span class="pre">xml.etree.ElementTree</span></code></a> &#8212; The ElementTree XML API<a class="headerlink" href="#module-xml.etree.ElementTree" title="Permalink to this headline">¶</a></h1>
+<p><strong>Source code:</strong> <a class="reference external" href="https://github.com/python/cpython/tree/3.6/Lib/xml/etree/ElementTree.py">Lib/xml/etree/ElementTree.py</a></p>
+<hr class="docutils" />
+<p>The <a class="reference internal" href="#module-xml.etree.ElementTree" title="xml.etree.ElementTree: Implementation of the ElementTree API."><code class="xref py py-mod docutils literal"><span class="pre">xml.etree.ElementTree</span></code></a> module implements a simple and efficient API
+for parsing and creating XML data.</p>
+<div class="versionchanged">
+<p><span class="versionmodified">Changed in version 3.3: </span>This module will use a fast implementation whenever available.
+The <code class="xref py py-mod docutils literal"><span class="pre">xml.etree.cElementTree</span></code> module is deprecated.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">The <a class="reference internal" href="#module-xml.etree.ElementTree" title="xml.etree.ElementTree: Implementation of the ElementTree API."><code class="xref py py-mod docutils literal"><span class="pre">xml.etree.ElementTree</span></code></a> module is not secure against
+maliciously constructed data.  If you need to parse untrusted or
+unauthenticated data see <a class="reference internal" href="xml.html#xml-vulnerabilities"><span>XML vulnerabilities</span></a>.</p>
+</div>
+<div class="section" id="tutorial">
+<h2>20.5.1. Tutorial<a class="headerlink" href="#tutorial" title="Permalink to this headline">¶</a></h2>
+<p>This is a short tutorial for using <a class="reference internal" href="#module-xml.etree.ElementTree" title="xml.etree.ElementTree: Implementation of the ElementTree API."><code class="xref py py-mod docutils literal"><span class="pre">xml.etree.ElementTree</span></code></a> (<code class="docutils literal"><span class="pre">ET</span></code> in
+short).  The goal is to demonstrate some of the building blocks and basic
+concepts of the module.</p>
+<div class="section" id="xml-tree-and-elements">
+<h3>20.5.1.1. XML tree and elements<a class="headerlink" href="#xml-tree-and-elements" title="Permalink to this headline">¶</a></h3>
+<p>XML is an inherently hierarchical data format, and the most natural way to
+represent it is with a tree.  <code class="docutils literal"><span class="pre">ET</span></code> has two classes for this purpose -
+<a class="reference internal" href="#xml.etree.ElementTree.ElementTree" title="xml.etree.ElementTree.ElementTree"><code class="xref py py-class docutils literal"><span class="pre">ElementTree</span></code></a> represents the whole XML document as a tree, and
+<a class="reference internal" href="#xml.etree.ElementTree.Element" title="xml.etree.ElementTree.Element"><code class="xref py py-class docutils literal"><span class="pre">Element</span></code></a> represents a single node in this tree.  Interactions with
+the whole document (reading and writing to/from files) are usually done
+on the <a class="reference internal" href="#xml.etree.ElementTree.ElementTree" title="xml.etree.ElementTree.ElementTree"><code class="xref py py-class docutils literal"><span class="pre">ElementTree</span></code></a> level.  Interactions with a single XML element
+and its sub-elements are done on the <a class="reference internal" href="#xml.etree.ElementTree.Element" title="xml.etree.ElementTree.Element"><code class="xref py py-class docutils literal"><span class="pre">Element</span></code></a> level.</p>
+</div>
+<div class="section" id="parsing-xml">
+<span id="elementtree-parsing-xml"></span><h3>20.5.1.2. Parsing XML<a class="headerlink" href="#parsing-xml" title="Permalink to this headline">¶</a></h3>
+<p>We&#8217;ll be using the following XML document as the sample data for this section:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;data&gt;</span>
+    <span class="nt">&lt;country</span> <span class="na">name=</span><span class="s">&quot;Liechtenstein&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;rank&gt;</span>1<span class="nt">&lt;/rank&gt;</span>
+        <span class="nt">&lt;year&gt;</span>2008<span class="nt">&lt;/year&gt;</span>
+        <span class="nt">&lt;gdppc&gt;</span>141100<span class="nt">&lt;/gdppc&gt;</span>
+        <span class="nt">&lt;neighbor</span> <span class="na">name=</span><span class="s">&quot;Austria&quot;</span> <span class="na">direction=</span><span class="s">&quot;E&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;neighbor</span> <span class="na">name=</span><span class="s">&quot;Switzerland&quot;</span> <span class="na">direction=</span><span class="s">&quot;W&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/country&gt;</span>
+    <span class="nt">&lt;country</span> <span class="na">name=</span><span class="s">&quot;Singapore&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;rank&gt;</span>4<span class="nt">&lt;/rank&gt;</span>
+        <span class="nt">&lt;year&gt;</span>2011<span class="nt">&lt;/year&gt;</span>
+        <span class="nt">&lt;gdppc&gt;</span>59900<span class="nt">&lt;/gdppc&gt;</span>
+        <span class="nt">&lt;neighbor</span> <span class="na">name=</span><span class="s">&quot;Malaysia&quot;</span> <span class="na">direction=</span><span class="s">&quot;N&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/country&gt;</span>
+    <span class="nt">&lt;country</span> <span class="na">name=</span><span class="s">&quot;Panama&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;rank&gt;</span>68<span class="nt">&lt;/rank&gt;</span>
+        <span class="nt">&lt;year&gt;</span>2011<span class="nt">&lt;/year&gt;</span>
+        <span class="nt">&lt;gdppc&gt;</span>13600<span class="nt">&lt;/gdppc&gt;</span>
+        <span class="nt">&lt;neighbor</span> <span class="na">name=</span><span class="s">&quot;Costa Rica&quot;</span> <span class="na">direction=</span><span class="s">&quot;W&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;neighbor</span> <span class="na">name=</span><span class="s">&quot;Colombia&quot;</span> <span class="na">direction=</span><span class="s">&quot;E&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/country&gt;</span>
+<span class="nt">&lt;/data&gt;</span>
+</pre></div>
+</div>
+<p>We can import this data by reading from a file:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">xml.etree.ElementTree</span> <span class="k">as</span> <span class="nn">ET</span>
+<span class="n">tree</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="s1">&#39;country_data.xml&#39;</span><span class="p">)</span>
+<span class="n">root</span> <span class="o">=</span> <span class="n">tree</span><span class="o">.</span><span class="n">getroot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Or directly from a string:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">fromstring</span><span class="p">(</span><span class="n">country_data_as_string</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#xml.etree.ElementTree.fromstring" title="xml.etree.ElementTree.fromstring"><code class="xref py py-func docutils literal"><span class="pre">fromstring()</span></code></a> parses XML from a string directly into an <a class="reference internal" href="#xml.etree.ElementTree.Element" title="xml.etree.ElementTree.Element"><code class="xref py py-class docutils literal"><span class="pre">Element</span></code></a>,
+which is the root element of the parsed tree.  Other parsing functions may
+create an <a class="reference internal" href="#xml.etree.ElementTree.ElementTree" title="xml.etree.ElementTree.ElementTree"><code class="xref py py-class docutils literal"><span class="pre">ElementTree</span></code></a>.  Check the documentation to be sure.</p>
+<p>As an <a class="reference internal" href="#xml.etree.ElementTree.Element" title="xml.etree.ElementTree.Element"><code class="xref py py-class docutils literal"><span class="pre">Element</span></code></a>, <code class="docutils literal"><span class="pre">root</span></code> has a tag and a dictionary of attributes:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="o">.</span><span class="n">tag</span>
+<span class="go">&#39;data&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="o">.</span><span class="n">attrib</span>
+<span class="go">{}</span>
+</pre></div>
+</div>
+<p>It also has children nodes over which we can iterate:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">root</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">child</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span> <span class="n">child</span><span class="o">.</span><span class="n">attrib</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">country {&#39;name&#39;: &#39;Liechtenstein&#39;}</span>
+<span class="go">country {&#39;name&#39;: &#39;Singapore&#39;}</span>
+<span class="go">country {&#39;name&#39;: &#39;Panama&#39;}</span>
+</pre></div>
+</div>
+<p>Children are nested, and we can access specific child nodes by index:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span>
+<span class="go">&#39;2008&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Not all elements of the XML input will end up as elements of the
+parsed tree. Currently, this module skips over any XML comments,
+processing instructions, and document type declarations in the
+input. Nevertheless, trees built using this module&#8217;s API rather
+than parsing from XML text can have comments and processing
+instructions in them; they will be included when generating XML
+output. A document type declaration may be accessed by passing a
+custom <a class="reference internal" href="#xml.etree.ElementTree.TreeBuilder" title="xml.etree.ElementTree.TreeBuilder"><code class="xref py py-class docutils literal"><span class="pre">TreeBuilder</span></code></a> instance to the <a class="reference internal" href="#xml.etree.ElementTree.XMLParser" title="xml.etree.ElementTree.XMLParser"><code class="xref py py-class docutils literal"><span class="pre">XMLParser</span></code></a>
+constructor.</p>
+</div>
+</div>
+<div class="section" id="pull-api-for-non-blocking-parsing">
+<span id="elementtree-pull-parsing"></span><h3>20.5.1.3. Pull API for non-blocking parsing<a class="headerlink" href="#pull-api-for-non-blocking-parsing" title="Permalink to this headline">¶</a></h3>
+<p>Most parsing functions provided by this module require the whole document
+to be read at once before returning any result.  It is possible to use an
+<a class="reference internal" href="#xml.etree.ElementTree.XMLParser" title="xml.etree.ElementTree.XMLParser"><code class="xref py py-class docutils literal"><span class="pre">XMLParser</span></code></a> and feed data into it incrementally, but it is a push API that
+calls methods on a callback target, which is too low-level and inconvenient for
+most needs.  Sometimes what the user really wants is to be able to parse XML
+incrementally, without blocking operations, while enjoying the convenience of
+fully constructed <a class="reference internal" href="#xml.etree.ElementTree.Element" title="xml.etree.ElementTree.Element"><code class="xref py py-class docutils literal"><span class="pre">Element</span></code></a> objects.</p>
+<p>The most powerful tool for doing this is <a class="reference internal" href="#xml.etree.ElementTree.XMLPullParser" title="xml.etree.ElementTree.XMLPullParser"><code class="xref py py-class docutils literal"><span class="pre">XMLPullParser</span></code></a>.  It does not
+require a blocking read to obtain the XML data, and is instead fed with data
+incrementally with <a class="reference internal" href="#xml.etree.ElementTree.XMLPullParser.feed" title="xml.etree.ElementTree.XMLPullParser.feed"><code class="xref py py-meth docutils literal"><span class="pre">XMLPullParser.feed()</span></code></a> calls.  To get the parsed XML
+elements, call <a class="reference internal" href="#xml.etree.ElementTree.XMLPullParser.read_events" title="xml.etree.ElementTree.XMLPullParser.read_events"><code class="xref py py-meth docutils literal"><span class="pre">XMLPullParser.read_events()</span></code></a>.  Here is an example:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parser</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">XMLPullParser</span><span class="p">([</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="s1">&#39;end&#39;</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parser</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="s1">&#39;&lt;mytag&gt;sometext&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">parser</span><span class="o">.</span><span class="n">read_events</span><span class="p">())</span>
+<span class="go">[(&#39;start&#39;, &lt;Element &#39;mytag&#39; at 0x7fa66db2be58&gt;)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">parser</span><span class="o">.</span><span class="n">feed</span><span class="p">(</span><span class="s1">&#39; more text&lt;/mytag&gt;&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">event</span><span class="p">,</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">parser</span><span class="o">.</span><span class="n">read_events</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">elem</span><span class="o">.</span><span class="n">tag</span><span class="p">,</span> <span class="s1">&#39;text=&#39;</span><span class="p">,</span> <span class="n">elem</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">end</span>
+</pre></div>
+</div>
+<p>The obvious use case is applications that operate in a non-blocking fashion
+where the XML data is being received from a socket or read incrementally from
+some storage device.  In such cases, blocking reads are unacceptable.</p>
+<p>Because it&#8217;s so flexible, <a class="reference internal" href="#xml.etree.ElementTree.XMLPullParser" title="xml.etree.ElementTree.XMLPullParser"><code class="xref py py-class docutils literal"><span class="pre">XMLPullParser</span></code></a> can be inconvenient to use for
+simpler use-cases.  If you don&#8217;t mind your application blocking on reading XML
+data but would still like to have incremental parsing capabilities, take a look
+at <a class="reference internal" href="#xml.etree.ElementTree.iterparse" title="xml.etree.ElementTree.iterparse"><code class="xref py py-func docutils literal"><span class="pre">iterparse()</span></code></a>.  It can be useful when you&#8217;re reading a large XML document
+and don&#8217;t want to hold it wholly in memory.</p>
+</div>
+<div class="section" id="finding-interesting-elements">
+<h3>20.5.1.4. Finding interesting elements<a class="headerlink" href="#finding-interesting-elements" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="#xml.etree.ElementTree.Element" title="xml.etree.ElementTree.Element"><code class="xref py py-class docutils literal"><span class="pre">Element</span></code></a> has some useful methods that help iterate recursively over all
+the sub-tree below it (its children, their children, and so on).  For example,
+<a class="reference internal" href="#xml.etree.ElementTree.Element.iter" title="xml.etree.ElementTree.Element.iter"><code class="xref py py-meth docutils literal"><span class="pre">Element.iter()</span></code></a>:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">neighbor</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s1">&#39;neighbor&#39;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">neighbor</span><span class="o">.</span><span class="n">attrib</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">{&#39;name&#39;: &#39;Austria&#39;, &#39;direction&#39;: &#39;E&#39;}</span>
+<span class="go">{&#39;name&#39;: &#39;Switzerland&#39;, &#39;direction&#39;: &#39;W&#39;}</span>
+<span class="go">{&#39;name&#39;: &#39;Malaysia&#39;, &#39;direction&#39;: &#39;N&#39;}</span>
+<span class="go">{&#39;name&#39;: &#39;Costa Rica&#39;, &#39;direction&#39;: &#39;W&#39;}</span>
+<span class="go">{&#39;name&#39;: &#39;Colombia&#39;, &#39;direction&#39;: &#39;E&#39;}</span>
+</pre></div>
+</div>
+<p><a class="reference internal" href="#xml.etree.ElementTree.Element.findall" title="xml.etree.ElementTree.Element.findall"><code class="xref py py-meth docutils literal"><span class="pre">Element.findall()</span></code></a> finds only elements with a tag which are direct
+children of the current element.  <a class="reference internal" href="#xml.etree.ElementTree.Element.find" title="xml.etree.ElementTree.Element.find"><code class="xref py py-meth docutils literal"><span class="pre">Element.find()</span></code></a> finds the <em>first</em> child
+with a particular tag, and <a class="reference internal" href="#xml.etree.ElementTree.Element.text" title="xml.etree.ElementTree.Element.text"><code class="xref py py-attr docutils literal"><span class="pre">Element.text</span></code></a> accesses the element&#8217;s text
+content.  <a class="reference internal" href="#xml.etree.ElementTree.Element.get" title="xml.etree.ElementTree.Element.get"><code class="xref py py-meth docutils literal"><span class="pre">Element.get()</span></code></a> accesses the element&#8217;s attributes:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">rank</span> <span class="o">=</span> <span class="n">country</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;rank&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span>
+<span class="gp">... </span>    <span class="n">name</span> <span class="o">=</span> <span class="n">country</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="go">Liechtenstein 1</span>
+<span class="go">Singapore 4</span>
+<span class="go">Panama 68</span>
+</pre></div>
+</div>
+<p>More sophisticated specification of which elements to look for is possible by
+using <a class="reference internal" href="#elementtree-xpath"><span>XPath</span></a>.</p>
+</div>
+<div class="section" id="modifying-an-xml-file">
+<h3>20.5.1.5. Modifying an XML File<a class="headerlink" href="#modifying-an-xml-file" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference internal" href="#xml.etree.ElementTree.ElementTree" title="xml.etree.ElementTree.ElementTree"><code class="xref py py-class docutils literal"><span class="pre">ElementTree</span></code></a> provides a simple way to build XML documents and write them to files.
+The <a class="reference internal" href="#xml.etree.ElementTree.ElementTree.write" title="xml.etree.ElementTree.ElementTree.write"><code class="xref py py-meth docutils literal"><span class="pre">ElementTree.write()</span></code></a> method serves this purpose.</p>
+<p>Once created, an <a class="reference internal" href="#xml.etree.ElementTree.Element" title="xml.etree.ElementTree.Element"><code class="xref py py-class docutils literal"><span class="pre">Element</span></code></a> object may be manipulated by directly changing
+its fields (such as <a class="reference internal" href="#xml.etree.ElementTree.Element.text" title="xml.etree.ElementTree.Element.text"><code class="xref py py-attr docutils literal"><span class="pre">Element.text</span></code></a>), adding and modifying attributes
+(<a class="reference internal" href="#xml.etree.ElementTree.Element.set" title="xml.etree.ElementTree.Element.set"><code class="xref py py-meth docutils literal"><span class="pre">Element.set()</span></code></a> method), as well as adding new children (for example
+with <a class="reference internal" href="#xml.etree.ElementTree.Element.append" title="xml.etree.ElementTree.Element.append"><code class="xref py py-meth docutils literal"><span class="pre">Element.append()</span></code></a>).</p>
+<p>Let&#8217;s say we want to add one to each country&#8217;s rank, and add an <code class="docutils literal"><span class="pre">updated</span></code>
+attribute to the rank element:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">rank</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="s1">&#39;rank&#39;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">new_rank</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">rank</span><span class="o">.</span><span class="n">text</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="gp">... </span>    <span class="n">rank</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">new_rank</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="n">rank</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;updated&#39;</span><span class="p">,</span> <span class="s1">&#39;yes&#39;</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;output.xml&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Our XML now looks like this:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;data&gt;</span>
+    <span class="nt">&lt;country</span> <span class="na">name=</span><span class="s">&quot;Liechtenstein&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;rank</span> <span class="na">updated=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>2<span class="nt">&lt;/rank&gt;</span>
+        <span class="nt">&lt;year&gt;</span>2008<span class="nt">&lt;/year&gt;</span>
+        <span class="nt">&lt;gdppc&gt;</span>141100<span class="nt">&lt;/gdppc&gt;</span>
+        <span class="nt">&lt;neighbor</span> <span class="na">name=</span><span class="s">&quot;Austria&quot;</span> <span class="na">direction=</span><span class="s">&quot;E&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;neighbor</span> <span class="na">name=</span><span class="s">&quot;Switzerland&quot;</span> <span class="na">direction=</span><span class="s">&quot;W&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/country&gt;</span>
+    <span class="nt">&lt;country</span> <span class="na">name=</span><span class="s">&quot;Singapore&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;rank</span> <span class="na">updated=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>5<span class="nt">&lt;/rank&gt;</span>
+        <span class="nt">&lt;year&gt;</span>2011<span class="nt">&lt;/year&gt;</span>
+        <span class="nt">&lt;gdppc&gt;</span>59900<span class="nt">&lt;/gdppc&gt;</span>
+        <span class="nt">&lt;neighbor</span> <span class="na">name=</span><span class="s">&quot;Malaysia&quot;</span> <span class="na">direction=</span><span class="s">&quot;N&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/country&gt;</span>
+    <span class="nt">&lt;country</span> <span class="na">name=</span><span class="s">&quot;Panama&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;rank</span> <span class="na">updated=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>69<span class="nt">&lt;/rank&gt;</span>
+        <span class="nt">&lt;year&gt;</span>2011<span class="nt">&lt;/year&gt;</span>
+        <span class="nt">&lt;gdppc&gt;</span>13600<span class="nt">&lt;/gdppc&gt;</span>
+        <span class="nt">&lt;neighbor</span> <span class="na">name=</span><span class="s">&quot;Costa Rica&quot;</span> <span class="na">direction=</span><span class="s">&quot;W&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;neighbor</span> <span class="na">name=</span><span class="s">&quot;Colombia&quot;</span> <span class="na">direction=</span><span class="s">&quot;E&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/country&gt;</span>
+<span class="nt">&lt;/data&gt;</span>
+</pre></div>
+</div>
+<p>We can remove elements using <a class="reference internal" href="#xml.etree.ElementTree.Element.remove" title="xml.etree.ElementTree.Element.remove"><code class="xref py py-meth docutils literal"><span class="pre">Element.remove()</span></code></a>.  Let&#8217;s say we want to
+remove all countries with a rank higher than 50:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">country</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;country&#39;</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">rank</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">country</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;rank&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="k">if</span> <span class="n">rank</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
+<span class="gp">... </span>        <span class="n">root</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">country</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tree</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;output.xml&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Our XML now looks like this:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;data&gt;</span>
+    <span class="nt">&lt;country</span> <span class="na">name=</span><span class="s">&quot;Liechtenstein&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;rank</span> <span class="na">updated=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>2<span class="nt">&lt;/rank&gt;</span>
+        <span class="nt">&lt;year&gt;</span>2008<span class="nt">&lt;/year&gt;</span>
+        <span class="nt">&lt;gdppc&gt;</span>141100<span class="nt">&lt;/gdppc&gt;</span>
+        <span class="nt">&lt;neighbor</span> <span class="na">name=</span><span class="s">&quot;Austria&quot;</span> <span class="na">direction=</span><span class="s">&quot;E&quot;</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;neighbor</span> <span class="na">name=</span><span class="s">&quot;Switzerland&quot;</span> <span class="na">direction=</span><span class="s">&quot;W&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/country&gt;</span>
+    <span class="nt">&lt;country</span> <span class="na">name=</span><span class="s">&quot;Singapore&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;rank</span> <span class="na">updated=</span><span class="s">&quot;yes&quot;</span><span class="nt">&gt;</span>5<span class="nt">&lt;/rank&gt;</span>
+        <span class="nt">&lt;year&gt;</span>2011<span class="nt">&lt;/year&gt;</span>
+        <span class="nt">&lt;gdppc&gt;</span>59900<span class="nt">&lt;/gdppc&gt;</span>
+        <span class="nt">&lt;neighbor</span> <span class="na">name=</span><span class="s">&quot;Malaysia&quot;</span> <span class="na">direction=</span><span class="s">&quot;N&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/country&gt;</span>
+<span class="nt">&lt;/data&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="building-xml-documents">
+<h3>20.5.1.6. Building XML documents<a class="headerlink" href="#building-xml-documents" title="Permalink to this headline">¶</a></h3>
+<p>The <a class="reference internal" href="#xml.etree.ElementTree.SubElement" title="xml.etree.ElementTree.SubElement"><code class="xref py py-func docutils literal"><span class="pre">SubElement()</span></code></a> function also provides a convenient way to create new
+sub-elements for a given element:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">Element</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">ET</span><span class="o">.</span><span class="n">SubElement</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ET</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">&lt;a&gt;&lt;b /&gt;&lt;c&gt;&lt;d /&gt;&lt;/c&gt;&lt;/a&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parsing-xml-with-namespaces">
+<h3>20.5.1.7. Parsing XML with Namespaces<a class="headerlink" href="#parsing-xml-with-namespaces" title="Permalink to this headline">¶</a></h3>
+<p>If the XML input has <a class="reference external" href="https://en.wikipedia.org/wiki/XML_namespace">namespaces</a>, tags and attributes
+with prefixes in the form <code class="docutils literal"><span class="pre">prefix:sometag</span></code> get expanded to
+<code class="docutils literal"><span class="pre">{uri}sometag</span></code> where the <em>prefix</em> is replaced by the full <em>URI</em>.
+Also, if there is a <a class="reference external" href="https://www.w3.org/TR/2006/REC-xml-names-20060816/#defaulting">default namespace</a>,
+that full URI gets prepended to all of the non-prefixed tags.</p>
+<p>Here is an XML example that incorporates two namespaces, one with the
+prefix &#8220;fictional&#8221; and the other serving as the default namespace:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;actors</span> <span class="na">xmlns:fictional=</span><span class="s">&quot;http://characters.example.com&quot;</span>
+        <span class="na">xmlns=</span><span class="s">&quot;http://people.example.com&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;actor&gt;</span>
+        <span class="nt">&lt;name&gt;</span>John Cleese<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;fictional:character&gt;</span>Lancelot<span class="nt">&lt;/fictional:character&gt;</span>
+        <span class="nt">&lt;fictional:character&gt;</span>Archie Leach<span class="nt">&lt;/fictional:character&gt;</span>
+    <span class="nt">&lt;/actor&gt;</span>
+    <span class="nt">&lt;actor&gt;</span>
+        <span class="nt">&lt;name&gt;</span>Eric Idle<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;fictional:character&gt;</span>Sir Robin<span class="nt">&lt;/fictional:character&gt;</span>
+        <span class="nt">&lt;fictional:character&gt;</span>Gunther<span class="nt">&lt;/fictional:character&gt;</span>
+        <span class="nt">&lt;fictional:character&gt;</span>Commander Clement<span class="nt">&lt;/fictional:character&gt;</span>
+    <span class="nt">&lt;/actor&gt;</span>
+<span class="nt">&lt;/actors&gt;</span>
+</pre></div>
+</div>
+<p>One way to search and explore this XML example is to manually add the
+URI to every tag or attribute in the xpath of a
+<a class="reference internal" href="#xml.etree.ElementTree.Element.find" title="xml.etree.ElementTree.Element.find"><code class="xref py py-meth docutils literal"><span class="pre">find()</span></code></a> or <a class="reference internal" href="#xml.etree.ElementTree.Element.findall" title="xml.etree.ElementTree.Element.findall"><code class="xref py py-meth docutils literal"><span class="pre">findall()</span></code></a>:</p>
+<div class="highlight-python3"><div class="highlight"><pre><span></span><span class="n">root</span> <span class="o">=</span> <span class="n">fromstring</span><span class="p">(</span><span class="n">xml_text</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">actor</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="s1">&#39;{http://people.example.com}actor&#39;</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=

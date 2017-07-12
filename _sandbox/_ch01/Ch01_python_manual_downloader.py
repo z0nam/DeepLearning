@@ -27,7 +27,7 @@ def download_file(url):
 	savedir = os.path.dirname(savepath)
 	if os.path.exists(savepath):
 		return savepath
-	else:
+	if not os.path.exists(savedir):
 		print("mkdir=", savedir)
 		makedirs(savedir)
 	#파일 다운받기
@@ -56,9 +56,10 @@ def analyze_html(url, root_url):
 		if link_url.find(root_url) != 0:
 			if not re.search(r".css$", link_url):
 				continue
-	if re.search(r".(html|htm)$", link_url):
-		analyze_html(link_url, root_url)
-		continue
+		if re.search(r".(html|htm)$", link_url):
+			analyze_html(link_url, root_url)
+			continue
+	
 	download_file(link_url)
 
 if __name__== "__main__":
