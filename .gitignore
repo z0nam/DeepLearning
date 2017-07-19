@@ -1,1 +1,9 @@
-_mainText_srcs
+_mainText_srcs/
+./_sandbox/_ch04.ML/_data/train.csv
+./_sandbox/_mainText_srcs/신문파일/data.json
+./_sandbox/_mainText_srcs/위키피디아모델/wiki.model.syn1neg.npy
+./_sandbox/_mainText_srcs/위키피디아모델/wiki.model.wv.syn0.npy
+./_sandbox/_mainText_srcs/위키피디아모델/wiki.txt
+./_sandbox/_mainText_srcs/위키피디아모델/wiki.wakati
+./_sandbox/_mainText_srcs/위키피디아모델/wiki2.model.syn1neg.npy
+./_sandbox/_mainText_srcs/위키피디아모델/wiki2.model.wv.syn0.npy

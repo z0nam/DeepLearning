@@ -33,8 +33,8 @@ def snulife_login(user, pw, phantom_path):
     return soup
 
 if __name__ == "__main__":
-    phantom_path = "C:\\Users\\sncc\\Downloads\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe"
-    soup = snulife_login('', '', phantom_path)
+    phantom_path = "/Users/j/Downloads/phantomjs-2.1.1-macosx/bin/phantomjs"
+    soup = snulife_login('', phantom_path)
     soup_str = str(soup)
     with open('example1.html', 'w', encoding="utf-8") as f:
         f.write(soup_str)
