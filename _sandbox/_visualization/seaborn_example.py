@@ -12,7 +12,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-os.chdir('C:\\Users\\sncc\\Dropbox\\workspace2\\net_con')
+os.chdir('')
 df = pd.read_excel('170613_re.xlsx')
 df['kakaoF'] = pd.to_numeric(df['kakaoF'], errors='coerce')
 df['one_to_one'] = pd.to_numeric(df['one_to_one'], errors = 'coerce')
